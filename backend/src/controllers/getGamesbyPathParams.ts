@@ -4,9 +4,13 @@ import { Request, Response} from 'express'
 export const getGamesByPathParams = (req:Request<{id:string}>, res:Response) => {
     const gameId = Number(req.params.id)
 
-    const filteredGames = games.filter(game => 
+    const game = games.find(game => 
          game.id === gameId
     )
 
-    res.json(filteredGames)
+    if (!game) {
+       return res.status(404).json({message: "no game with the corresponding id found"})
+    }
+
+    res.json(game)
 }
