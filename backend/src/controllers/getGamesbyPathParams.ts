@@ -1,16 +1,18 @@
-import { games } from '../data/data.ts'
 import { Request, Response} from 'express'
 
-export const getGamesByPathParams = (req:Request<{id:string}>, res:Response) => {
-    const gameId = Number(req.params.id)
+export const getGamesByPathParams = async (req:Request<{id:string}>, res:Response) => {
 
-    const game = games.find(game => 
-         game.id === gameId
+    const { id } = req.params
+
+    const response = await fetch(
+        `https://api.rawg.io/api/games/${id}?key=${process.env.RAWG_API_KEY}`
     )
 
-    if (!game) {
-       return res.status(404).json({message: "no game with the corresponding id found"})
+    if (!response.ok) {
+        throw new Error(`RAWG API error ${response.status}`)
     }
 
-    res.json(game)
+    const data = await response.json()
+
+    res.json(data)
 }
