@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getGames } from './services/gameApi'
 import type { Game } from './types/game'
+import { Header } from './components/header/header.tsx'
 import './App.css'
 
 function App() {
@@ -15,17 +16,15 @@ function App() {
 
   return (
     <div>
-      <div>
-        <input 
-          type="text"
-          value={search} 
-          onChange={(event) => {setSearch(event.target.value)}}
-          placeholder='Search Games...'
-        />
-      </div>
-      <div>
+      <Header
+        search={search}
+        setSearch={setSearch}
+      />
+      <div className='cardsPage'>
         {games.map(game => (
-          <p key={game.id}>{game.name}</p>
+          <div className='gameCard'>
+            <p key={game.id}>{game.name}</p>
+          </div>
         ))}
       </div>
     </div>
