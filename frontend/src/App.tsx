@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getGames } from './services/gameApi'
 import type { Game } from './types/game'
 import { Header } from './components/header/header.tsx'
+import { GameCard } from './components/gameCard/gameCard.tsx'
 import './App.css'
 
 function App() {
@@ -22,9 +23,7 @@ function App() {
       />
       <div className='cardsPage'>
         {games.map(game => (
-          <div className='gameCard'>
-            <p key={game.id}>{game.name}</p>
-          </div>
+          <GameCard game={game} />
         ))}
       </div>
     </div>
