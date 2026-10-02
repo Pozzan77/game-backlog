@@ -3,16 +3,26 @@ import type { Game } from '../../types/game'
 
 interface GameCardProps {
     game: Game
+    gridFilter:boolean
 }
 
-export function GameCard({game}: GameCardProps) {
+export function GameCard({game, gridFilter}: GameCardProps) {
 
     return (
-        <div className='card'>
-            <img src={game.cover?.url} alt={game.name} />
-            <p>{game.name}</p>
-            <p>Not Played</p>
-            <p>{game.rating}</p>
+        <div>
+            {!gridFilter ? (
+                <div className='card-list'>
+                    <img src={game.cover?.url} alt={game.name} />
+                    <p>{game.name}</p>
+                    <p>Not Played</p>
+                    <p>{game.rating ? (game.rating /20).toFixed(2) : 0}</p>
+                </div>) : (
+                <div className='card-grid'>
+                    <img src={game.cover?.url} alt={game.name} />
+                </div>
+                )
+            }
         </div>
+
     )
 }

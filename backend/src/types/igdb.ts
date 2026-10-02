@@ -9,4 +9,10 @@ export interface IGDBGame {
     }
 }
 
+export interface IGDBPopularity {
+    game_id: number
+    popularity_type: number
+    value: number
+}
+
 export type IGDBResponse = IGDBGame[]

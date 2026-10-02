@@ -8,6 +8,7 @@ import './App.css'
 function App() {
   const [games, setGames] = useState<Game[]>([])
   const [search, setSearch] = useState('')
+  const [gridFilter, setGridFilter] = useState(true)
 
   useEffect (() => {
       getGames(search)
@@ -15,17 +16,23 @@ function App() {
         .catch(error => console.error(error))
   },[search])
 
+  function handleGrid() {
+    setGridFilter(!gridFilter)
+  }
+
   return (
     <div>
       <Header
         search={search}
         setSearch={setSearch}
       />
-      <div className='cardsPage'>
+      <button onClick={handleGrid}>Grid</button>
+      <div className={gridFilter ? 'cardsPage' : 'cardList'}>
         {games.map(game => (
           <GameCard
             key={game.id} 
             game={game}
+            gridFilter={gridFilter}
              />
         ))}
       </div>

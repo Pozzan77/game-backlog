@@ -1,4 +1,4 @@
-.card {
+.card-list {
     display: flex;
     justify-self: center;
     gap: 10%;
@@ -10,7 +10,7 @@
     border-radius: 5px;
 }
 
-.card img {
+.card-list img {
     width: 20%;
     display: block;
     aspect-ratio: 16 / 9;
@@ -18,7 +18,15 @@
     border-radius: 5px;
 }
 
-.card p {
+.card-list p {
     width: 20%;
-    align-self: center;
+}
+
+.card-grid {
+    width: 80%;
+}
+
+.card-grid img {
+    object-fit: cover;
+    border-radius: 5px;
 }
