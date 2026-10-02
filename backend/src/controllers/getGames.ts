@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction} from 'express'
-import type { IGDBGame } from '../types/igdb.ts'
+import type { IGDBGame, IGDBPopularity } from '../types/igdb.ts'
 
 
 export const getGames = async (req:Request<{}, unknown, {}, {search?:string}>, res:Response, next:NextFunction) => {
@@ -33,7 +33,45 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string}>, r
 
         const data: IGDBGame[] = await response.json()
 
-        console.log(data)
+        const gameIds = data.map(game => game.id)
+
+        const popularityQuery = `
+            fields game_id, popularity_type, value;
+            where game_id = (${gameIds.join(',')}) & popularity_type = 1;
+        `
+
+        const popularityResponse = await fetch(
+            'https://api.igdb.com/v4/popularity_primitives',
+            {
+                method: 'POST',
+                headers: {
+                    'Client-ID': process.env.IGDB_CLIENT_ID!,
+                    'Authorization': `Bearer ${process.env.IGDB_ACCESS_TOKEN!}`,
+                    'Content-Type': 'text/plain'
+                },
+                body: popularityQuery
+            }
+        )
+        
+        if (!popularityResponse.ok) {
+            throw new Error(`IGDB popularity API error ${popularityResponse.status}`)
+        }
+        
+        const popularityData: IGDBPopularity[] = await popularityResponse.json()
+
+        const popularityMap = new Map(
+            popularityData.map((item: { game_id: number, value: number }) => [
+                item.game_id,
+                item.value
+            ])
+        )
+
+        data.sort((a, b) => {
+            const popularityA = popularityMap.get(a.id) ?? 0
+            const popularityB = popularityMap.get(b.id) ?? 0
+        
+            return popularityB - popularityA
+        })
 
         res.json(data)
     }
