@@ -5,7 +5,6 @@ import cors from 'cors'
 import { gameRoutes } from './routes/gameRoutes.ts'
 
 const PORT = 3000
-process.env.RAWG_API_KEY
 const app = express()
 
 app.use(cors())

@@ -9,7 +9,7 @@ export function GameCard({game}: GameCardProps) {
 
     return (
         <div className='card'>
-            <img src={game.background_image} alt={game.name} />
+            <img src={game.cover?.url} alt={game.name} />
             <p>{game.name}</p>
             <p>Not Played</p>
             <p>{game.rating}</p>

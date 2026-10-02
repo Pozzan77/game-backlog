@@ -11,7 +11,7 @@ function App() {
 
   useEffect (() => {
       getGames(search)
-        .then(data => setGames(data.results))
+        .then(data => setGames(data))
         .catch(error => console.error(error))
   },[search])
 
@@ -23,7 +23,10 @@ function App() {
       />
       <div className='cardsPage'>
         {games.map(game => (
-          <GameCard game={game} />
+          <GameCard
+            key={game.id} 
+            game={game}
+             />
         ))}
       </div>
     </div>

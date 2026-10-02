@@ -1,4 +1,4 @@
-export interface Game {
+export interface IGDBGame {
     id: number
     name: string
     slug: string
@@ -9,7 +9,4 @@ export interface Game {
     }
 }
 
-export interface Search {
-    search:string
-    setSearch:(value:string) => void
-}
+export type IGDBResponse = IGDBGame[]
