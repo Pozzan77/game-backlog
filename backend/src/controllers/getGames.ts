@@ -8,7 +8,7 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string}>, r
         
         
         const query = `
-            fields id, name, slug, rating, first_release_date, cover.url;
+            fields id, name, slug, rating, first_release_date, cover.url, artworks.url;
             search "${search}";
             limit 100;
         `

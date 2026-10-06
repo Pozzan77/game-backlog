@@ -34,6 +34,13 @@ function App() {
         handleSearchSubmit={handleSearchSubmit}
       />
       <button onClick={handleGrid}>Grid</button>
+      {!gridFilter && (
+        <div className='subtitles'>
+            <p className='sub1'>Title</p>
+            <p className='sub2'>Status</p>
+            <p className='sub2'>Rating</p>
+        </div>        
+      )}
       <div className={gridFilter ? 'cardsPage' : 'cardList'}>
         {games.map(game => (
           <GameCard

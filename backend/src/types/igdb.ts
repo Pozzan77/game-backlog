@@ -7,6 +7,9 @@ export interface IGDBGame {
     cover?: {
         url: string
     }
+    artworks?: {
+        url:string
+    }[]
 }
 
 export interface IGDBPopularity {

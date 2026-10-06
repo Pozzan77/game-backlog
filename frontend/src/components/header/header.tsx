@@ -13,7 +13,7 @@ export function Header({search, setSearch, handleSearchSubmit}:Search) {
             </h1>
             <div>
                 <form className='search-bar' onSubmit={handleSearchSubmit}>
-                    <img src={searchIMG} alt="" />
+                    <img src={searchIMG} alt="search"/>
                     <input 
                         type="search"
                         placeholder='Search Games...'

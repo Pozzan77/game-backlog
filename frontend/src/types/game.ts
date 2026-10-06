@@ -7,6 +7,9 @@ export interface Game {
     cover?: {
         url: string
     }
+    artworks?: {
+        url:string
+    }[]
 }
 
 export interface Search {
