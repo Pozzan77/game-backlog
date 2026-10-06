@@ -7,7 +7,7 @@
     width: 60%;
     height: 150px;
     background-color: var(--gray);
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 .card-list img {
@@ -15,18 +15,16 @@
     display: block;
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 .card-list p {
     width: 20%;
 }
 
-.card-grid {
-    width: 80%;
-}
+
 
 .card-grid img {
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 8px;
 }

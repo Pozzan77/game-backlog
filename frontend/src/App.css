@@ -3,6 +3,7 @@
     grid-template-columns: repeat(7, 1fr);
     justify-content: center;
     place-items: center;
-    gap: 10px;
+    gap: 30px;
     margin: 30px;
+
 }

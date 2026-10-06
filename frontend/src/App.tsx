@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState} from 'react'
 import { getGames } from './services/gameApi'
 import type { Game } from './types/game'
 import { Header } from './components/header/header.tsx'
@@ -8,13 +8,19 @@ import './App.css'
 function App() {
   const [games, setGames] = useState<Game[]>([])
   const [search, setSearch] = useState('')
+  const [activeSearch, setActiveSearch] = useState('')
   const [gridFilter, setGridFilter] = useState(true)
 
   useEffect (() => {
-      getGames(search)
+      getGames(activeSearch)
         .then(data => setGames(data))
         .catch(error => console.error(error))
-  },[search])
+  },[activeSearch])
+
+  function handleSearchSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setActiveSearch(search)
+  }
 
   function handleGrid() {
     setGridFilter(!gridFilter)
@@ -25,6 +31,7 @@ function App() {
       <Header
         search={search}
         setSearch={setSearch}
+        handleSearchSubmit={handleSearchSubmit}
       />
       <button onClick={handleGrid}>Grid</button>
       <div className={gridFilter ? 'cardsPage' : 'cardList'}>

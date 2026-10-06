@@ -12,4 +12,5 @@ export interface Game {
 export interface Search {
     search:string
     setSearch:(value:string) => void
+    handleSearchSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void
 }
