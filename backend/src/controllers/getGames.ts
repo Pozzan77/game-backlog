@@ -70,17 +70,13 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string}>, r
             const popularityA = popularityMap.get(a.id) ?? 0
             const popularityB = popularityMap.get(b.id) ?? 0
         
-            const ratingA = a.rating ?? 0
-            const ratingB = b.rating ?? 0
+            if (popularityB !== popularityA) {
+                return popularityB - popularityA
+            }
         
-            const hasRatingA = a.rating != null
-            const hasRatingB = b.rating != null
-        
-            if (hasRatingA && !hasRatingB) return -1
-            if (!hasRatingA && hasRatingB) return 1
-        
-            return popularityB - popularityA
+            return (b.rating ?? 0) - (a.rating ?? 0)
         })
+        
 
         data.forEach(game => {
             if (game.cover) {
