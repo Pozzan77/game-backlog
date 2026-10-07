@@ -9,9 +9,12 @@
 
 .open-menu {
     width: 57px;
-    height: 57px;
+    height: 44px;
     margin: 30px;
+    background: none;
+    border: none;
 }
+
 
 .logo {
     margin-left: 10%;

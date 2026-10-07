@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react'
+import { use, useEffect, useState} from 'react'
 import { getGames } from './services/gameApi'
 import type { Game } from './types/game'
 import { Header } from './components/header/header.tsx'
@@ -8,22 +8,32 @@ import './App.css'
 function App() {
   const [games, setGames] = useState<Game[]>([])
   const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
   const [activeSearch, setActiveSearch] = useState('')
   const [gridFilter, setGridFilter] = useState(true)
 
   useEffect (() => {
-      getGames(activeSearch)
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+      getGames(activeSearch, page, gridFilter ? 70 : 30)
         .then(data => setGames(data))
         .catch(error => console.error(error))
-  },[activeSearch])
+  },[activeSearch,page,gridFilter])
 
   function handleSearchSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
+    setPage(1)
     setActiveSearch(search)
   }
 
   function handleGrid() {
-    setGridFilter(!gridFilter)
+    setGridFilter(true)
+  }
+
+  function handlelist() {
+    setGridFilter(false)
   }
 
   return (
@@ -33,7 +43,13 @@ function App() {
         setSearch={setSearch}
         handleSearchSubmit={handleSearchSubmit}
       />
-      <button onClick={handleGrid}>Grid</button>
+      <div className='filters'>
+        <p>Display:</p>
+        <div className='layout'>
+          <button onClick={handleGrid}>Grid</button>
+          <button onClick={handlelist}>List</button>
+        </div>
+      </div>
       {!gridFilter && (
         <div className='subtitles'>
             <p className='sub1'>Title</p>
@@ -49,6 +65,17 @@ function App() {
             gridFilter={gridFilter}
              />
         ))}
+      </div>
+      <div className='page-change'>
+        <button onClick={() => setPage(page - 1)}>
+          Prev
+        </button>
+
+        <span>Page {page}</span>
+
+        <button onClick={() => {setPage(page + 1)}}>
+          Next
+        </button>
       </div>
     </div>
   )

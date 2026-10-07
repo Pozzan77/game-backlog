@@ -2,19 +2,25 @@ import { Request, Response, NextFunction} from 'express'
 import type { IGDBGame, IGDBPopularity } from '../types/igdb.ts'
 
 
-export const getGames = async (req:Request<{}, unknown, {}, {search?:string}>, res:Response, next:NextFunction) => {
+export const getGames = async (req:Request<{}, unknown, {}, {search?:string, page?:string, pageSize?:string}>, res:Response, next:NextFunction) => {
     try {
-        const {search} = req.query
-        
+        const {search, page="1", pageSize='70'} = req.query
+
+        const pageNumber = Number(page)
+        const limit = Number(pageSize)
+        const offset = (pageNumber - 1) * limit
         
         const query = search ? `
-            fields id, name, slug, rating, first_release_date, cover.url;
-            search "${search}";
-            limit 100; ` : `
             fields id, name, slug, rating, rating_count, first_release_date, cover.url;
-            where rating_count > 1000 & rating > 70;
             sort rating_count desc;
-            limit 100;
+            search "${search}";
+            limit ${limit};
+            offset ${offset};` : 
+        `
+            fields id, name, slug, rating, rating_count, first_release_date, cover.url;
+            sort rating_count desc;
+            limit ${limit};
+            offset ${offset};
         `
 
         const response = await fetch('https://api.igdb.com/v4/games', {
