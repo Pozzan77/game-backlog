@@ -7,9 +7,13 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string}>, r
         const {search} = req.query
         
         
-        const query = `
-            fields id, name, slug, rating, first_release_date, cover.url, artworks.url;
+        const query = search ? `
+            fields id, name, slug, rating, first_release_date, cover.url;
             search "${search}";
+            limit 100; ` : `
+            fields id, name, slug, rating, rating_count, first_release_date, cover.url;
+            where rating_count > 1000 & rating > 70;
+            sort rating_count desc;
             limit 100;
         `
 
@@ -33,49 +37,51 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string}>, r
         
 
         const data: IGDBGame[] = await response.json()
-
-        const gameIds = data.map(game => game.id)
-
-        const popularityQuery = `
-            fields game_id, popularity_type, value;
-            where game_id = (${gameIds.join(',')}) & popularity_type = 1;
-        `
-
-        const popularityResponse = await fetch(
-            'https://api.igdb.com/v4/popularity_primitives',
-            {
-                method: 'POST',
-                headers: {
-                    'Client-ID': process.env.IGDB_CLIENT_ID!,
-                    'Authorization': `Bearer ${process.env.IGDB_ACCESS_TOKEN!}`,
-                    'Content-Type': 'text/plain'
-                },
-                body: popularityQuery
-            }
-        )
         
-        if (!popularityResponse.ok) {
-            throw new Error(`IGDB popularity API error ${popularityResponse.status}`)
+        if (search) {
+            const gameIds = data.map(game => game.id)
+
+            const popularityQuery = `
+                fields game_id, popularity_type, value;
+                where game_id = (${gameIds.join(',')}) & popularity_type = 1;
+            `
+
+            const popularityResponse = await fetch(
+                'https://api.igdb.com/v4/popularity_primitives',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Client-ID': process.env.IGDB_CLIENT_ID!,
+                        'Authorization': `Bearer ${process.env.IGDB_ACCESS_TOKEN!}`,
+                        'Content-Type': 'text/plain'
+                    },
+                    body: popularityQuery
+                }
+            )
+            
+            if (!popularityResponse.ok) {
+                throw new Error(`IGDB popularity API error ${popularityResponse.status}`)
+            }
+            
+            const popularityData: IGDBPopularity[] = await popularityResponse.json()
+
+            const popularityMap = new Map(
+                popularityData.map((item: { game_id: number, value: number }) => [
+                    item.game_id,
+                    item.value
+                ])
+            )
+            data.sort((a, b) => {
+                const popularityA = popularityMap.get(a.id) ?? 0
+                const popularityB = popularityMap.get(b.id) ?? 0
+            
+                if (popularityB !== popularityA) {
+                    return popularityB - popularityA
+                }
+            
+                return (b.rating ?? 0) - (a.rating ?? 0)
+            })
         }
-        
-        const popularityData: IGDBPopularity[] = await popularityResponse.json()
-
-        const popularityMap = new Map(
-            popularityData.map((item: { game_id: number, value: number }) => [
-                item.game_id,
-                item.value
-            ])
-        )
-        data.sort((a, b) => {
-            const popularityA = popularityMap.get(a.id) ?? 0
-            const popularityB = popularityMap.get(b.id) ?? 0
-        
-            if (popularityB !== popularityA) {
-                return popularityB - popularityA
-            }
-        
-            return (b.rating ?? 0) - (a.rating ?? 0)
-        })
         
 
         data.forEach(game => {
@@ -86,7 +92,6 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string}>, r
                 )
             }
         })
-        
 
         res.json(data)
     }
