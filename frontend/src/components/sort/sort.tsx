@@ -5,12 +5,13 @@ interface SortProps {
     setSort: (value:string) => void
     isSortOpen:boolean
     setIsSortOpen: (value:boolean) => void
+    setPage: (value:number) => void
 }
 
-export function Sort({sort, setSort, isSortOpen, setIsSortOpen}:SortProps) {
+export function Sort({sort, setSort, isSortOpen, setIsSortOpen, setPage}:SortProps) {
 
     const sortOptions:string[] = [
-        "Popularity", "Rating", "Realease" 
+        "popularity", "rating", "release" 
       ]
 
     return (
@@ -33,6 +34,8 @@ export function Sort({sort, setSort, isSortOpen, setIsSortOpen}:SortProps) {
                 {sortOptions.map((sort) => (
                     <div className="options" key={sort} onClick={() => {
                         setSort(sort)
+                        setPage(1)
+                        setIsSortOpen(false)
                     }}>
                         {sort}
                     </div>

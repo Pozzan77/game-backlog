@@ -2,14 +2,26 @@ import { Request, Response, NextFunction} from 'express'
 import type { IGDBGame, IGDBPopularity } from '../types/igdb.ts'
 
 
-export const getGames = async (req:Request<{}, unknown, {}, {search?:string, page?:string, pageSize?:string}>, res:Response, next:NextFunction) => {
+export const getGames = async (req:Request<{}, unknown, {}, {search?:string, page?:string, pageSize?:string, sort?:string}>, res:Response, next:NextFunction) => {
     try {
-        const {search, page="1", pageSize='70'} = req.query
+        const {search, page="1", pageSize='70', sort='popularity'} = req.query
 
         const pageNumber = Number(page)
         const limit = Number(pageSize)
         const offset = (pageNumber - 1) * limit
+
+        let sortQuery = 'rating_count desc'
+        let whereQuery = ''
         
+        if (sort === 'rating') {
+            sortQuery = 'rating desc'
+            whereQuery = 'rating_count >= 100'
+        }
+        
+        if (sort === 'release') {
+            sortQuery = 'first_release_date desc'
+            whereQuery = 'rating_count >= 1'
+        }
         const query = search ? `
             fields id, name, slug, rating, rating_count, first_release_date, cover.url;
             search "${search}";
@@ -17,7 +29,8 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string, pag
             offset ${offset};` : 
         `
             fields id, name, slug, rating, rating_count, first_release_date, cover.url;
-            sort rating_count desc;
+            ${whereQuery ? `where ${whereQuery};` : ''}
+            sort ${sortQuery};
             limit ${limit};
             offset ${offset};
         `

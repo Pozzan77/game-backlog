@@ -20,10 +20,10 @@ function App() {
         top: 0,
         behavior: 'smooth'
       })
-      getGames(activeSearch, page, gridFilter ? 70 : 30)
+      getGames(activeSearch, page, gridFilter ? 70 : 30, sort)
         .then(data => setGames(data))
         .catch(error => console.error(error))
-  },[activeSearch,page,gridFilter])
+  },[activeSearch,page,gridFilter, sort])
 
   function handleSearchSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -39,9 +39,6 @@ function App() {
     setGridFilter(false)
   }
 
-  const sortOptions:string[] = [
-    "Popularity", "Rating", "Realease" 
-  ]
 
   return (
     <div>
@@ -62,6 +59,7 @@ function App() {
           setSort={setSort}
           isSortOpen={isSortOpen}
           setIsSortOpen={setIsSortOpen}
+          setPage={setPage}
           />
       </div>
       {!gridFilter && (
