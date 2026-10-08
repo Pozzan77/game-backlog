@@ -12,7 +12,6 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string, pag
         
         const query = search ? `
             fields id, name, slug, rating, rating_count, first_release_date, cover.url;
-            sort rating_count desc;
             search "${search}";
             limit ${limit};
             offset ${offset};` : 

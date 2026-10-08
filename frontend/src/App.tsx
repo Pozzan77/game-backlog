@@ -3,12 +3,15 @@ import { getGames } from './services/gameApi'
 import type { Game } from './types/game'
 import { Header } from './components/header/header.tsx'
 import { GameCard } from './components/gameCard/gameCard.tsx'
+import { Sort } from './components/sort/sort.tsx'
 import './App.css'
 
 function App() {
   const [games, setGames] = useState<Game[]>([])
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
+  const [sort, setSort] = useState('popularity')
+  const [isSortOpen, setIsSortOpen] = useState(false)
   const [activeSearch, setActiveSearch] = useState('')
   const [gridFilter, setGridFilter] = useState(true)
 
@@ -36,6 +39,10 @@ function App() {
     setGridFilter(false)
   }
 
+  const sortOptions:string[] = [
+    "Popularity", "Rating", "Realease" 
+  ]
+
   return (
     <div>
       <Header
@@ -49,6 +56,13 @@ function App() {
           <button onClick={handleGrid}>Grid</button>
           <button onClick={handlelist}>List</button>
         </div>
+        Sorted By:
+        <Sort 
+          sort={sort}
+          setSort={setSort}
+          isSortOpen={isSortOpen}
+          setIsSortOpen={setIsSortOpen}
+          />
       </div>
       {!gridFilter && (
         <div className='subtitles'>
