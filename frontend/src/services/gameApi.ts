@@ -1,7 +1,7 @@
 import type { Game } from '../types/game'
 
 export async function getGames(search?: string, page:number = 1, pageSize:number = 70, sort:string = 'popularity'): Promise<Game[]> {
-    const url = new URL('http://localhost:3000/api/games')
+    const url = new URL('http://localhost:3001/api/games')
 
     if (search) {
         url.searchParams.set('search', search)

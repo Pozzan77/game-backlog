@@ -24,7 +24,7 @@ const response = await fetch(
 )
 
     if (!response.ok) {
-        throw new Error(`IGDDB API error ${response.status}`)
+        throw new Error(`IGDB API error ${response.status}`)
     }
 
     const data: IGDBGame[] = await response.json()

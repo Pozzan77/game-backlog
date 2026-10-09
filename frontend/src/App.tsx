@@ -1,9 +1,10 @@
-import { use, useEffect, useState} from 'react'
+import { useEffect, useState} from 'react'
 import { getGames } from './services/gameApi'
 import type { Game } from './types/game'
 import { Header } from './components/header/header.tsx'
 import { GameCard } from './components/gameCard/gameCard.tsx'
 import { Sort } from './components/sort/sort.tsx'
+import { SideMenu } from './components/sidemenu/sidemenu.tsx'
 import './App.css'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   const [isSortOpen, setIsSortOpen] = useState(false)
   const [activeSearch, setActiveSearch] = useState('')
   const [gridFilter, setGridFilter] = useState(true)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect (() => {
       window.scrollTo({
@@ -25,42 +27,41 @@ function App() {
         .catch(error => console.error(error))
   },[activeSearch,page,gridFilter, sort])
 
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
+  
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMenuOpen])
+
   function handleSearchSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     setPage(1)
     setActiveSearch(search)
   }
 
-  function handleGrid() {
-    setGridFilter(true)
-  }
-
-  function handlelist() {
-    setGridFilter(false)
-  }
-
-
   return (
     <div>
+      
       <Header
         search={search}
         setSearch={setSearch}
         handleSearchSubmit={handleSearchSubmit}
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
       />
+      {isMenuOpen && <SideMenu 
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+      />}
       <div className='filters'>
         <p>Display:</p>
         <div className='layout'>
-          <button onClick={handleGrid}>Grid</button>
-          <button onClick={handlelist}>List</button>
+          <button onClick={() => setGridFilter(true)}>Grid</button>
+          <button onClick={() => setGridFilter(false)}>List</button>
         </div>
         Sorted By:
-        <Sort 
-          sort={sort}
-          setSort={setSort}
-          isSortOpen={isSortOpen}
-          setIsSortOpen={setIsSortOpen}
-          setPage={setPage}
-          />
       </div>
       {!gridFilter && (
         <div className='subtitles'>

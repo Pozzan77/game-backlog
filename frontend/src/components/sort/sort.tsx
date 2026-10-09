@@ -15,7 +15,7 @@ export function Sort({sort, setSort, isSortOpen, setIsSortOpen, setPage}:SortPro
       ]
 
     return (
-        <div className={`sort-select ${isSortOpen} ? "open" : ""}`}>
+        <div className="sort-select">
         <button 
             className="sort-btn"
             onClick={() => setIsSortOpen(!isSortOpen)}>     
