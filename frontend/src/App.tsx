@@ -16,6 +16,8 @@ function App() {
   const [activeSearch, setActiveSearch] = useState('')
   const [gridFilter, setGridFilter] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [suggestions,setSuggestions] = useState<Game[]>([])
+  const [isSuggestionOpen,setIsSuggestionOpen] = useState(false)
 
   useEffect (() => {
       window.scrollTo({
@@ -35,10 +37,31 @@ function App() {
     }
   }, [isMenuOpen])
 
+  async function handleSearchChange(value:string) {
+    setSearch(value)
+
+    if (value.trim().length < 2) {
+      setSuggestions([])
+      setIsSuggestionOpen(false)
+      return
+    }
+
+    try {
+      const results = await getGames(value, 1, 30, 'popularity')
+      setSuggestions(results)
+      setIsSuggestionOpen(true)
+    }
+    catch (error) {
+      console.log(error)
+    }
+    
+  }
+
   function handleSearchSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     setPage(1)
     setActiveSearch(search)
+    setIsSuggestionOpen(false)
   }
 
   return (
@@ -50,6 +73,10 @@ function App() {
         handleSearchSubmit={handleSearchSubmit}
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
+        suggestions={suggestions}
+        isSuggestionOpen={isSuggestionOpen}
+        setIsSuggestionOpen={setIsSuggestionOpen}
+        handleSearchChange={handleSearchChange}
       />
       {isMenuOpen && <SideMenu 
           isMenuOpen={isMenuOpen}
@@ -62,6 +89,13 @@ function App() {
           <button onClick={() => setGridFilter(false)}>List</button>
         </div>
         Sorted By:
+        <Sort 
+          sort={sort}
+          setSort={setSort}
+          isSortOpen={isSortOpen}
+          setIsSortOpen={setIsSortOpen}
+          setPage={setPage}
+          />
       </div>
       {!gridFilter && (
         <div className='subtitles'>

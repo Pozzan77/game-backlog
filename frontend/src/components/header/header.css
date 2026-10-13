@@ -24,6 +24,10 @@
 
 }
 
+.search-container {
+    position: relative;
+}
+
 .search-bar {
     display: flex;
     align-items: center;
@@ -52,6 +56,44 @@
 
 }
 
+.suggestions {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    background-color: #514B4B;
+    border-radius: 0 0 8px 8px;
+    z-index: 1000;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+    background: var(--gray);
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 8px;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+.suggestions button {
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 12px;
+    background: none;
+    border: none;
+    color: var(--font);
+}
+
 
 .user {
     display: flex;
@@ -65,6 +107,8 @@
     color: #938D8D;
     font-size: 1.25rem;
 }
+
+
 
 
 
