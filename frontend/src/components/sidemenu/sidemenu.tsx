@@ -3,6 +3,7 @@ import { User } from 'lucide-react'
 import { NotebookPen } from 'lucide-react'
 import { Settings } from 'lucide-react'
 import { Users } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 
 interface SideMenuProps {
     isMenuOpen:boolean
@@ -43,6 +44,10 @@ export function SideMenu({isMenuOpen, setIsMenuOpen}:SideMenuProps) {
                 <button className='text-btn'>
                     <p className='med'>Settings</p>
                     <Settings size={55} />
+                </button>
+                <button className='text-btn'>
+                    <p className='logout'>Log Out</p>
+                    <LogOut size={55} color='#b12e2e'/>
                 </button>
             </div>
         </>

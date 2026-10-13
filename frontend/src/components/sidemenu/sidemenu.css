@@ -17,11 +17,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    padding-top: 10%;
+    padding-top: 5%;
     padding-left: 30px;
     height: 100%;
     width: 400px;
     box-sizing: border-box;
+    border-radius: 0 8px 8px 0;
     z-index: 1000;
     background-color: var(--gray);
 }
@@ -43,9 +44,19 @@
     font-size: 2.5rem;
 }
 
+.text-btn .logout {
+    font-size: 2.5rem;
+    color: #b12e2e;
+
+}
+
 .text-btn:hover {
-    text-decoration: underline;
     color: var(--blue);
+}
+
+.text-btn .logout:hover {
+    text-decoration: underline;
+    color: #b12e2e;
 }
 
 .status-options {
@@ -61,4 +72,5 @@
     color: var(--font);
     width: 120px;
     height: 44px;
+    font-size: 1.5rem;
 }
