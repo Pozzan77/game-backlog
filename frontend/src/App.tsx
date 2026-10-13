@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react'
+import { useEffect, useRef, useState} from 'react'
 import { getGames } from './services/gameApi'
 import type { Game } from './types/game'
 import { Header } from './components/header/header.tsx'
@@ -37,8 +37,12 @@ function App() {
     }
   }, [isMenuOpen])
 
+  const searchRequestId = useRef(0)
+
   async function handleSearchChange(value:string) {
     setSearch(value)
+
+    const requestId = ++searchRequestId.current
 
     if (value.trim().length < 2) {
       setSuggestions([])
@@ -48,6 +52,9 @@ function App() {
 
     try {
       const results = await getGames(value, 1, 30, 'popularity')
+
+      if (requestId !== searchRequestId.current) return
+      
       setSuggestions(results)
       setIsSuggestionOpen(true)
     }
@@ -61,6 +68,7 @@ function App() {
     event.preventDefault()
     setPage(1)
     setActiveSearch(search)
+    setSuggestions([])
     setIsSuggestionOpen(false)
   }
 
