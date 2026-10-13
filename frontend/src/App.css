@@ -24,9 +24,7 @@
 
 .layout {
     display: flex; 
-    gap: 5px;
     border: solid 1px var(--gray);
-    padding: 5px;
     margin-right: 40px;
     border-radius: 8px;
     box-shadow: 
@@ -37,16 +35,24 @@
 }
 
 .layout button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--font);
     border: none;
     width: 40px;
     height: 40px;
-    padding: 10px;
     border-radius: 5px;
-    background-color: var(--font);
+    background: none;
+
 }
 
 .layout button:hover {
-    background-color: var(--blue);
+   color: var(--blue);
+}
+
+.layout button.selected {
+    color: var(--blue);
 }
 
 .subtitles {

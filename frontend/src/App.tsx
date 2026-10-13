@@ -5,6 +5,8 @@ import { Header } from './components/header/header.tsx'
 import { GameCard } from './components/gameCard/gameCard.tsx'
 import { Sort } from './components/sort/sort.tsx'
 import { SideMenu } from './components/sidemenu/sidemenu.tsx'
+import { LayoutGrid } from 'lucide-react'
+import { List } from 'lucide-react'
 import './App.css'
 
 function App() {
@@ -54,7 +56,7 @@ function App() {
       const results = await getGames(value, 1, 30, 'popularity')
 
       if (requestId !== searchRequestId.current) return
-      
+
       setSuggestions(results)
       setIsSuggestionOpen(true)
     }
@@ -93,8 +95,8 @@ function App() {
       <div className='filters'>
         <p>Display:</p>
         <div className='layout'>
-          <button onClick={() => setGridFilter(true)}>Grid</button>
-          <button onClick={() => setGridFilter(false)}>List</button>
+          <button className={gridFilter ? "selected" : ""} onClick={() => setGridFilter(true)}><LayoutGrid /></button>
+          <button className={!gridFilter ? "selected" : ""} onClick={() => setGridFilter(false)}><List /></button>
         </div>
         Sorted By:
         <Sort 
