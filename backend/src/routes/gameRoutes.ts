@@ -7,4 +7,4 @@ export const gameRoutes = Router()
 
 gameRoutes.get('/', getGames)
 
-gameRoutes.get('/:id', getGamesByPathParams)
+gameRoutes.get('/:slug', getGamesByPathParams)
