@@ -26,7 +26,9 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string, pag
             fields id, name, slug, rating, rating_count, first_release_date, cover.url;
             search "${search}";
             limit ${limit};
-            offset ${offset};` : 
+            offset ${offset};
+        ` 
+            : 
         `
             fields id, name, slug, rating, rating_count, first_release_date, cover.url;
             ${whereQuery ? `where ${whereQuery};` : ''}

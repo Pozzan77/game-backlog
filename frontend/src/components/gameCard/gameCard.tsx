@@ -18,7 +18,7 @@ export function GameCard({game, gridFilter}: GameCardProps) {
     return (
         <div>
             {!gridFilter ? (
-                <div className='card-list' onClick={() => openGame}>
+                <div className='card-list' onClick={openGame}>
                     <div className='title'>
                         <img src={game.cover?.url} alt={game.name} />
                         <p>{game.name}</p>

@@ -47,14 +47,16 @@ function App() {
           <button className={gridFilter ? "selected" : ""} onClick={() => setGridFilter(true)}><LayoutGrid /></button>
           <button className={!gridFilter ? "selected" : ""} onClick={() => setGridFilter(false)}><List /></button>
         </div>
-        Sorted By:
-        <Sort 
-          sort={sort}
-          setSort={setSort}
-          isSortOpen={isSortOpen}
-          setIsSortOpen={setIsSortOpen}
-          setPage={setPage}
-          />
+        {!activeSearch && <div className='sort-select'>
+          <p>Sorted By:</p>
+          <Sort 
+            sort={sort}
+            setSort={setSort}
+            isSortOpen={isSortOpen}
+            setIsSortOpen={setIsSortOpen}
+            setPage={setPage}
+            />
+        </div>}
       </div>
       {!gridFilter && (
         <div className='subtitles'>

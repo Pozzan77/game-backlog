@@ -15,7 +15,7 @@
     justify-self: center;
     justify-content: end;
     align-items: center;
-    width: 80%;
+    width: 70%;
 }
 
 .filters p {
@@ -53,6 +53,12 @@
 
 .layout button.selected {
     color: var(--blue);
+}
+
+.sort-select {
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
 }
 
 .subtitles {

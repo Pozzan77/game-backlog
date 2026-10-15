@@ -57,13 +57,14 @@ export default function Layout() {
         if (!query) return
       
         navigate(`/?search=${encodeURIComponent(query)}`)
+        
+        setIsSuggestionOpen(false)
       }
 
       function handleSuggestionSelect(game: Game) {
         setSearch(game.name)
         setIsSuggestionOpen(false)
         navigate(`/?search=${encodeURIComponent(game.name)}`)
-        handleSearchSubmit()
       }
 
     return(
