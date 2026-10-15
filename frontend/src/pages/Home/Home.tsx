@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState} from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { getGames } from '../../services/gameApi.ts'
 import type { Game } from '../../types/game.ts'
 import { Header } from '../../components/header/header.tsx'
@@ -11,15 +12,15 @@ import './Home.css'
 
 function App() {
   const [games, setGames] = useState<Game[]>([])
-  const [search, setSearch] = useState('')
+
   const [page, setPage] = useState(1)
   const [sort, setSort] = useState('popularity')
   const [isSortOpen, setIsSortOpen] = useState(false)
-  const [activeSearch, setActiveSearch] = useState('')
+  const [searchParams] = useSearchParams()
+  const activeSearch = searchParams.get('search') ?? ''
   const [gridFilter, setGridFilter] = useState(true)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [suggestions,setSuggestions] = useState<Game[]>([])
-  const [isSuggestionOpen,setIsSuggestionOpen] = useState(false)
+
+
 
   useEffect (() => {
       window.scrollTo({
@@ -31,67 +32,13 @@ function App() {
         .catch(error => console.error(error))
   },[activeSearch,page,gridFilter, sort])
 
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
-  
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isMenuOpen])
 
-  const searchRequestId = useRef(0)
 
-  async function handleSearchChange(value:string) {
-    setSearch(value)
 
-    const requestId = ++searchRequestId.current
 
-    if (value.trim().length < 2) {
-      setSuggestions([])
-      setIsSuggestionOpen(false)
-      return
-    }
-
-    try {
-      const results = await getGames(value, 1, 30, 'popularity')
-
-      if (requestId !== searchRequestId.current) return
-
-      setSuggestions(results)
-      setIsSuggestionOpen(true)
-    }
-    catch (error) {
-      console.log(error)
-    }
-    
-  }
-
-  function handleSearchSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setPage(1)
-    setActiveSearch(search)
-    setSuggestions([])
-    setIsSuggestionOpen(false)
-  }
 
   return (
     <div>
-      
-      <Header
-        search={search}
-        setSearch={setSearch}
-        handleSearchSubmit={handleSearchSubmit}
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        suggestions={suggestions}
-        isSuggestionOpen={isSuggestionOpen}
-        setIsSuggestionOpen={setIsSuggestionOpen}
-        handleSearchChange={handleSearchChange}
-      />
-      {isMenuOpen && <SideMenu 
-          isMenuOpen={isMenuOpen}
-          setIsMenuOpen={setIsMenuOpen}
-      />}
       <div className='filters'>
         <p>Display:</p>
         <div className='layout'>

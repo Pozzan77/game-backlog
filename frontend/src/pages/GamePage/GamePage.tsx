@@ -3,6 +3,8 @@ import { getGamesBySlug } from "../../services/gameSlugApi";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
 import type { Game } from "../../types/game";
+import { GameDetails } from "../../components/gameDetails/gameDetails.tsx";
+import { Header } from "../../components/header/header.tsx";
 
 function GamePage() {
 
@@ -24,7 +26,7 @@ function GamePage() {
 
   return (
     <div>
-      <p>{game?.name}</p>
+      <GameDetails game={game}/>
     </div>
   );
 }
