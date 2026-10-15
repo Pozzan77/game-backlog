@@ -63,6 +63,7 @@ export default function Layout() {
         setSearch(game.name)
         setIsSuggestionOpen(false)
         navigate(`/?search=${encodeURIComponent(game.name)}`)
+        handleSearchSubmit()
       }
 
     return(

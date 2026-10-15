@@ -1,40 +1,42 @@
-import { useEffect, useRef, useState} from 'react'
+import { useEffect, useState} from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { getGames } from '../../services/gameApi.ts'
 import type { Game } from '../../types/game.ts'
-import { Header } from '../../components/header/header.tsx'
 import { GameCard } from '../../components/gameCard/gameCard.tsx'
 import { Sort } from '../../components/sort/sort.tsx'
-import { SideMenu } from '../../components/sidemenu/sidemenu.tsx'
 import { LayoutGrid } from 'lucide-react'
 import { List } from 'lucide-react'
 import './Home.css'
 
 function App() {
   const [games, setGames] = useState<Game[]>([])
-
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(() => {
+    const savedPage = sessionStorage.getItem('homePage')
+    return savedPage ? Number(savedPage) : 1
+  })
   const [sort, setSort] = useState('popularity')
   const [isSortOpen, setIsSortOpen] = useState(false)
   const [searchParams] = useSearchParams()
   const activeSearch = searchParams.get('search') ?? ''
   const [gridFilter, setGridFilter] = useState(true)
 
-
+  useEffect(() => {
+    setPage(1)
+  }, [activeSearch])
 
   useEffect (() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
       getGames(activeSearch, page, gridFilter ? 70 : 30, sort)
         .then(data => setGames(data))
         .catch(error => console.error(error))
   },[activeSearch,page,gridFilter, sort])
 
-
-
-
+  useEffect(() => {
+    sessionStorage.setItem('homePage', String(page))
+  }, [page])
 
 
   return (
