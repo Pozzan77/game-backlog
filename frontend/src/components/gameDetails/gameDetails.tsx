@@ -39,7 +39,7 @@ export function GameDetails({ game }: GameDetailsProps) {
                 />
             </div>
             <div className='main-details'>
-                <div className='left collum'>
+                <div className='left-collumn'>
                     <div className='cover-log'>
                         <img className='cover' 
                             src={
@@ -64,8 +64,15 @@ export function GameDetails({ game }: GameDetailsProps) {
                             </div>
                     </div>
                 </div>
-                <div className='right collumn'>
-
+                <div className='right-collumn'>
+                        <div className='name-company'>
+                            <p className='game-name'>{game.name}</p>
+                            <div className="company-name">
+                                by: {game.involved_companies?.find((company) => 
+                                company.developer)?.company.name}, {game.involved_companies?.find((company) => 
+                                    company.publisher)?.company.name}
+                            </div>
+                        </div>
                 </div>
             </div>
         </>
