@@ -15,4 +15,32 @@ export interface IGDBPopularity {
     value: number
 }
 
+export interface IGDBGameSlug extends IGDBGame {
+    summary?:string
+    storyline?:string
+    screenshots?: {
+        url: string
+    }[]
+    artworks?: {
+        url: string
+        width: number
+        height: number
+    }[]
+    genres?: {
+        name: string
+    }[]
+
+    platforms?: {
+        name: string
+    }[]
+
+    involved_companies?: {
+        developer: boolean
+        publisher: boolean
+        company: {
+            name: string
+        }
+    }[]
+}
+
 export type IGDBResponse = IGDBGame[]

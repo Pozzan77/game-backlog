@@ -5,10 +5,29 @@ export const getGamesByPathParams = async (req:Request<{slug:string}>, res:Respo
 
     const { slug } = req.params
 
+
     const query = `
-    fields id, name, slug, rating, first_release_date, cover.url;
+    fields
+        id,
+        name,
+        slug,
+        summary,
+        storyline,
+        rating,
+        rating_count,
+        first_release_date,
+        cover.url,
+        artworks.url,
+        screenshots.url,
+        genres.name,
+        platforms.name,
+        involved_companies.company.name,
+        involved_companies.developer,
+        involved_companies.publisher;
     where slug = "${slug}";
+    limit 1;
 `
+
 
 const response = await fetch(
     'https://api.igdb.com/v4/games',

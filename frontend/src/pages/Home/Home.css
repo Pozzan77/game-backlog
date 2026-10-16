@@ -1,3 +1,7 @@
+.home {
+    margin-top: 3%;
+}
+
 .cardsPage {
     display: grid;
     grid-template-columns: repeat(7, 1fr);

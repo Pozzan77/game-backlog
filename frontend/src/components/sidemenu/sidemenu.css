@@ -59,14 +59,14 @@
     color: #b12e2e;
 }
 
-.status-options {
+.status-menu{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     width: 90%;
     gap: 10px;
 }
 
-.status-options button {
+.status-menu button {
     background-color: var(--blue);
     border: none;
     border-radius: 8px;
@@ -76,6 +76,6 @@
     font-size: 1.5rem;
 }
 
-.status-options button:hover {
+.status-menu button:hover {
     text-decoration: underline;
 }

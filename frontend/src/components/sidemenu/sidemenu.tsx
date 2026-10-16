@@ -22,7 +22,7 @@ export function SideMenu({isMenuOpen, setIsMenuOpen}:SideMenuProps) {
                     <p>My Profile</p>
                     <User size={65} />
                 </button>
-                <div className='status-options'>
+                <div className='status-menu'>
                     <button>Playing</button>
                     <button>Played</button>
                     <button>Backlog</button>
@@ -36,7 +36,7 @@ export function SideMenu({isMenuOpen, setIsMenuOpen}:SideMenuProps) {
                     <p className='med'>Friends</p>
                     <Users size={55} />
                 </button>
-                <div className='status-options'>
+                <div className='status-menu'>
                     <button>Following</button>
                     <button>Followers</button>
 

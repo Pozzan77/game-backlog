@@ -40,7 +40,7 @@ function App() {
 
 
   return (
-    <div>
+    <div className='home'>
       <div className='filters'>
         <p>Display:</p>
         <div className='layout'>
