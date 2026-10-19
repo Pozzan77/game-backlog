@@ -79,6 +79,12 @@ export function GameDetails({ game }: GameDetailsProps) {
                             <b>Released</b>
                             {game.first_release_date ? new Date(game.first_release_date * 1000).toLocaleDateString("en-GD") : "unknown"}
                         </div>
+                        <div className='description'>
+                            <h1>Description</h1>
+                            <div className={"description-text"}>
+                                <p>{game.summary}</p>
+                            </div>
+                        </div>
                 </div>
             </div>
         </>

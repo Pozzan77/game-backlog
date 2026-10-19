@@ -71,13 +71,11 @@ export default function Layout() {
         <div>
             <Header
                 search={search}
-                setSearch={setSearch}
                 handleSearchSubmit={handleSearchSubmit}
                 isMenuOpen={isMenuOpen}
                 setIsMenuOpen={setIsMenuOpen}
                 suggestions={suggestions}
                 isSuggestionOpen={isSuggestionOpen}
-                setIsSuggestionOpen={setIsSuggestionOpen}
                 handleSearchChange={handleSearchChange}
                 handleSuggestionSelect={handleSuggestionSelect}
             />

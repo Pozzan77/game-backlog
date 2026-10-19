@@ -1,9 +1,11 @@
 .header {
     display: flex;
+    position: absolute;
     align-items: center;
-    background-color: var(--gray);
     width: 100%;
     height: 60px;
+    z-index: 1000;
+    top: 0;
 }
 
 .open-menu {
@@ -109,7 +111,7 @@
 .user button {
     border: none;
     background: none;
-    color: #938D8D;
+    color: var(--font);
     font-size: 1.25rem;
 }
 

@@ -6,26 +6,22 @@ import { useNavigate } from 'react-router-dom'
 
 export interface HeaderProps {
     search:string
-    setSearch:(value:string) => void
     handleSearchSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void
     isMenuOpen:boolean
     setIsMenuOpen: (value:boolean) => void
     suggestions:Game[]
     isSuggestionOpen:boolean
-    setIsSuggestionOpen:(value:boolean) => void
     handleSearchChange: (value: string) => void | Promise<void>
     handleSuggestionSelect: (game:Game) => void
 }
 
 export function Header({
         search, 
-        setSearch, 
         handleSearchSubmit, 
         isMenuOpen, 
         setIsMenuOpen, 
         suggestions, 
         isSuggestionOpen, 
-        setIsSuggestionOpen,
         handleSearchChange,
         handleSuggestionSelect}
     :

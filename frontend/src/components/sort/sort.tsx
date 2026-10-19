@@ -24,7 +24,7 @@ export function Sort({sort, setSort, isSortOpen, setIsSortOpen, setPage}:SortPro
                 {sort}
             </span>
             
-            <span className="arrow">
+            <span>
                 {isSortOpen ? "▲" : "▼"}
             </span>                       
         </button>
