@@ -23,6 +23,7 @@ export function GameDetails({ game }: GameDetailsProps) {
     })
 
 
+
     return (
         <>
             <div className="game-banner">
@@ -69,9 +70,14 @@ export function GameDetails({ game }: GameDetailsProps) {
                             <p className='game-name'>{game.name}</p>
                             <div className="company-name">
                                 by: {game.involved_companies?.find((company) => 
-                                company.developer)?.company.name}, {game.involved_companies?.find((company) => 
+                                company.developer)?.company.name}, 
+                                {game.involved_companies?.find((company) => 
                                     company.publisher)?.company.name}
                             </div>
+                        </div>
+                        <div className='release'>
+                            <b>Released</b>
+                            {game.first_release_date ? new Date(game.first_release_date * 1000).toLocaleDateString("en-GD") : "unknown"}
                         </div>
                 </div>
             </div>

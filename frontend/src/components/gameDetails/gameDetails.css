@@ -88,3 +88,14 @@
     align-items: center;
     font-size: 2rem;
 }
+
+.release {
+    display: flex;
+    gap: 10px;
+    width: 15%;
+    justify-content: center;
+    background-color: var(--gray);
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 1.25rem;
+}
