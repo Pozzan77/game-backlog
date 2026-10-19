@@ -64,6 +64,19 @@ export function GameDetails({ game }: GameDetailsProps) {
                                 </button>
                             </div>
                     </div>
+                    <div className='rating-stats'>
+                        <div className='rating'>
+                            <p>Avg Rating</p>
+                            <h1>{(game.rating / 20).toFixed(1)}</h1>
+                        </div>
+                        <div className='stats'>
+                            <ul>
+                                <li>Played: </li>
+                                <li>Playing: </li>
+                                <li>Wishlist: </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div className='right-collumn'>
                         <div className='name-company'>

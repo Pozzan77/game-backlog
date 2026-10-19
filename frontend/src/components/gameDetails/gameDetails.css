@@ -85,6 +85,51 @@
     border-radius: 8px;
 }
 
+.rating-stats {
+    display: flex;
+    position: absolute;
+    width: 320px;
+    height: 120px;
+    top: 880px;
+    left: 120px;
+    background-color: var(--gray);
+    color: white;
+    border-radius: 8px;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    font-weight: 600;
+}
+
+.rating p {
+    margin: 0;
+}
+
+.rating h1 {
+    margin: 0;
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.stats ul {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    list-style: none;
+}
+
 /* Right Collumn */
 
 .name-company {
@@ -131,7 +176,7 @@
 .genres-plataforms {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+
     font-size: 1.25rem;
 }
 
