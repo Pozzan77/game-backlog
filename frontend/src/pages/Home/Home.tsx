@@ -14,7 +14,7 @@ function App() {
     const savedPage = sessionStorage.getItem('homePage')
     return savedPage ? Number(savedPage) : 1
   })
-  const [sort, setSort] = useState('popularity')
+  const [sort, setSort] = useState('Popularity')
   const [isSortOpen, setIsSortOpen] = useState(false)
   const [searchParams] = useSearchParams()
   const activeSearch = searchParams.get('search') ?? ''

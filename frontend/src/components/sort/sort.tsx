@@ -11,7 +11,7 @@ interface SortProps {
 export function Sort({sort, setSort, isSortOpen, setIsSortOpen, setPage}:SortProps) {
 
     const sortOptions:string[] = [
-        "popularity", "rating", "release" 
+        "Popularity", "Rating", "Release" 
       ]
 
     return (

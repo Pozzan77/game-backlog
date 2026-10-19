@@ -13,12 +13,12 @@ export const getGames = async (req:Request<{}, unknown, {}, {search?:string, pag
         let sortQuery = 'rating_count desc'
         let whereQuery = ''
         
-        if (sort === 'rating') {
+        if (sort === 'Rating') {
             sortQuery = 'rating desc'
             whereQuery = 'rating_count >= 100'
         }
         
-        if (sort === 'release') {
+        if (sort === 'Release') {
             sortQuery = 'first_release_date desc'
             whereQuery = 'rating_count >= 1'
         }

@@ -33,7 +33,7 @@
 .main-details {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background-color: #1C5CA6;
+    background-color: #1C5CA6;  
     width: 100%;
     height: auto;
     padding-bottom: 5%;
@@ -120,9 +120,67 @@
 
 .description {
     font-size: 1.25rem;
+
 }
 
 .description-text {
     border-bottom: 1px solid var(--font);
 }
 
+
+.genres-plataforms {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-size: 1.25rem;
+}
+
+.genres-plataforms b {
+    margin-right: 5%;
+    width: 8%;
+    font-weight: 600;
+}
+
+.genres-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-bottom: 1px solid var(--font);
+    padding: 20px;
+}
+
+.genres-names {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.genre {
+    background-color: var(--gray);
+    padding: 8px;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+.plataforms-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-bottom: 1px solid var(--font);
+    padding: 20px;
+}
+
+.plataforms-names {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.plataform {
+    background-color: var(--gray);
+    padding: 8px;
+    border-radius: 8px;
+    margin: 10px;
+}

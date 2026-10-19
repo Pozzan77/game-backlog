@@ -85,6 +85,30 @@ export function GameDetails({ game }: GameDetailsProps) {
                                 <p>{game.summary}</p>
                             </div>
                         </div>
+                        <div className='genres-plataforms'>
+                            <div className='genres-container'>
+                                <b>Genres</b>
+                                    <div className='genres-names'>
+                                        {game.genres?.map((genre) => 
+                                            <div className='genre'>
+                                                {genre.name}
+                                            </div>
+                                        )}
+                                    </div>
+                            </div>
+                            <div className='plataforms'>
+                                <div className='plataforms-container'>
+                                    <b>Plataforms</b>
+                                        <div className='plataforms-names'>
+                                            {game.platforms?.map((plataform) => 
+                                                <div className='plataform'>
+                                                    {plataform.name}
+                                                </div>
+                                            )}
+                                        </div>
+                                </div>    
+                            </div>
+                        </div>
                 </div>
             </div>
         </>
